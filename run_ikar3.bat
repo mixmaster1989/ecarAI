@@ -1,0 +1,46 @@
+@echo off
+echo ===================================================
+echo        ИКАР-Ассистент 3.0 - Запуск программы
+echo ===================================================
+
+:: Check if Python is installed
+where python >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    echo [ОШИБКА] Python не установлен или отсутствует в PATH.
+    echo Пожалуйста, установите Python 3.8 или выше.
+    echo Скачать можно с сайта: https://www.python.org/downloads/
+    pause
+    exit /b 1
+)
+
+:: Check Python version
+python -c "import sys; sys.exit(0 if sys.version_info >= (3, 8) else 1)" >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    echo [ОШИБКА] Требуется Python версии 3.8 или выше.
+    echo Текущая версия:
+    python --version
+    pause
+    exit /b 1
+)
+
+:: Check and install dependencies
+echo [1/2] Проверка и установка зависимостей...
+pip install -r requirements.txt
+if %ERRORLEVEL% NEQ 0 (
+    echo [ОШИБКА] Не удалось установить зависимости.
+    echo Проверьте подключение к интернету и попробуйте снова.
+    pause
+    exit /b 1
+)
+
+:: Run the application
+echo [2/2] Запуск приложения...
+echo ===================================================
+python run_ikar3.py
+
+if %ERRORLEVEL% NEQ 0 (
+    echo ===================================================
+    echo [ОШИБКА] Произошла ошибка при запуске приложения.
+    echo Проверьте логи для получения дополнительной информации.
+    pause
+)
