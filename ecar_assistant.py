@@ -197,7 +197,7 @@ class IkarAssistant(QMainWindow):
     
     def init_db(self):
         # Create database if it doesn't exist
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ikar_history.db')
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ecar_history.db')
         self.conn = sqlite3.connect(db_path)
         cursor = self.conn.cursor()
         cursor.execute('''
